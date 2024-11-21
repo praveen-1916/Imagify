@@ -7,7 +7,7 @@ import AiSample2 from "../assets/sample_img_2.png";
 function Home() {
   return (
     <>
-      <div className="flex justify-center items-center flex-col gap-8 mt-11">
+      <div className="flex items-center flex-col gap-8 mt-11">
         <Chip
           variant="outlined"
           value="Best text to image generator 🌟"
@@ -34,7 +34,7 @@ function Home() {
           Generate Images ✨
         </Button>
 
-        <div className="md:max-w-3xl mx-w-xl grid md:gap-4 gap-2 grid-cols-6 mx-8 mt-8">
+        <div className="md:max-w-3xl mx-w-xl grid md:gap-4 gap-2 md:grid-cols-6 grid-cols-3 mx-8 mt-8">
           <img src={AiSample1} alt="Sample 3D Image" className="rounded-md" />
           <img src={AiSample2} alt="Sample 3D Image" className="rounded-md" />
           <img src={AiSample1} alt="Sample 3D Image" className="rounded-md" />

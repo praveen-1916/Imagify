@@ -12,7 +12,7 @@ import { PhotoIcon } from "@heroicons/react/24/solid";
 function NavBar() {
   return (
     <Navbar
-      className="max-w-full px-20 py-5 bg-transparent"
+      className="max-w-full md:px-20 sm:px-14 px-10 py-5 bg-transparent"
       blurred={false}
       shadow={false}
     >
