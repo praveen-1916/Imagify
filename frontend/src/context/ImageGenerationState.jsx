@@ -1,21 +1,37 @@
 import React, { useState } from "react";
 import ImageGenerationContext from "./ImageGenerationContext";
 import AiSample1 from "../assets/sample_img_1.png";
+import Swal from "sweetalert2";
 
 function ImageGenerationState(props) {
   const [image, setImage] = useState(AiSample1);
   const [loading, setLoading] = useState(false);
-  const [alerData, setAlerData] = useState(null);
+  // const [alerData, setAlerData] = useState(null);
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "bottom-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    },
+  });
 
   const alertFunc = (msg, success) => {
-    setAlerData({
-      msg: msg,
-      success: success,
-    });
-
-    setTimeout(() => {
-      setAlerData(null);
-    }, 4000);
+    if (success) {
+      Toast.fire({
+        icon: "success",
+        title: msg,
+      });
+    } else {
+      Toast.fire({
+        icon: "error",
+        title: msg,
+      });
+    }
   };
 
   const getImageSrcUsingInputPropmt = async (prompt) => {
@@ -44,6 +60,7 @@ function ImageGenerationState(props) {
       }
     } catch (error) {
       console.error(error.message);
+      alertFunc(error.message, false);
       setLoading(false);
     }
   };
@@ -54,7 +71,6 @@ function ImageGenerationState(props) {
         getImageSrcUsingInputPropmt,
         image,
         loading,
-        alerData,
       }}
     >
       {props.children}

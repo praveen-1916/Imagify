@@ -31,7 +31,7 @@ router.post("/generate", async (req, res) => {
       res.json({ success: false, message: "Please provide a valid prompt" });
     }
   } catch (error) {
-    console.error({ success: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 });
 

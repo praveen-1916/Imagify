@@ -116,7 +116,7 @@ function CoustomerReviews() {
       <motion.div
         initial={{ opacity: 0.2, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.8 }}
         viewport={{ once: true }}
         className="my-32 flex items-center flex-col justify-center"
       >

@@ -110,7 +110,7 @@ function Main() {
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 1 }}
               href={image}
               download
               className="bg-black text-white py-3 rounded-full px-12"
