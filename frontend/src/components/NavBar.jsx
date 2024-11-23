@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Navbar, Typography } from "@material-tailwind/react";
+import { Navbar, Typography } from "@material-tailwind/react";
 import {
   SignedIn,
   SignedOut,

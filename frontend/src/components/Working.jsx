@@ -11,6 +11,8 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
+import { motion } from "motion/react";
+
 const workingProcedure = [
   {
     number: 1,
@@ -37,7 +39,13 @@ const workingProcedure = [
 
 function Working() {
   return (
-    <div className="my-28">
+    <motion.div
+      initial={{ opacity: 0.2, y: 100 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      viewport={{ once: true }}
+      className="my-28"
+    >
       <div className="text-center">
         <Typography variant="h2">How it works</Typography>
         <Typography>Transform Words Into Stunning Images</Typography>
@@ -72,7 +80,7 @@ function Working() {
           </Card>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
