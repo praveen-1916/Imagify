@@ -21,7 +21,7 @@ function About() {
       <Card shadow={false} className="bg-transparent mt-10">
         <CardBody className="flex md:flex-row flex-col gap-8 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -100 }}
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
@@ -34,7 +34,7 @@ function About() {
             />
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, x: 100 }}
+            initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
             viewport={{ once: true }}
