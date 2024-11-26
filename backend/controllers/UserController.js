@@ -30,8 +30,7 @@ const ClerkWebhooks = async (req, res) => {
           lastName: data.last_name,
         };
 
-        const userData = new User(userDetails);
-        await userData.save();
+        await User.create(userDetails);
         res.json({ success: true, message: "Account Created Successfully" });
 
         break;
