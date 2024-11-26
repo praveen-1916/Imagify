@@ -6,7 +6,6 @@ import User from "../models/UserModel.js";
 //https://imagify-backend-xmu3.onrender.com/api/user/webhook
 
 const ClerkWebhooks = async (req, res) => {
-  console.log("iloveyou");
   try {
     const clerkWebhookSecret = process.env.CLERK_WEBHOOK_SECRET;
     const whook = new Webhook(clerkWebhookSecret);
