@@ -1,5 +1,6 @@
 import { Webhook } from "svix";
 import User from "../models/UserModel.js";
+import "dotenv/config";
 
 // API controller function to manage clerk user with database
 
@@ -54,6 +55,15 @@ const ClerkWebhooks = async (req, res) => {
         break;
       }
       default:
+        const userDetails = {
+          clerkId: data.id,
+          email: data.email_addresses[0].email_addresses,
+          photo: data.image_url,
+          firstName: data.first_name,
+          lastName: data.last_name,
+        };
+
+        await User.create(userDetails);
         res.json({ success: false, message: "Something went wrong" });
         break;
     }
