@@ -24,7 +24,7 @@ const ClerkWebhooks = async (req, res) => {
       case "user.created": {
         const userDetails = {
           clerkId: data.id,
-          email: data.email_addresses[0].email_addresses,
+          email: data.email_addresses[0].email_address,
           photo: data.image_url,
           firstName: data.first_name,
           lastName: data.last_name,
@@ -37,7 +37,7 @@ const ClerkWebhooks = async (req, res) => {
       }
       case "user.updated": {
         const userUpdateDetails = {
-          email: data.email_addresses[0].email_addresses,
+          email: data.email_addresses[0].email_address,
           photo: data.image_url,
           firstName: data.first_name,
           lastName: data.last_name,
@@ -55,15 +55,6 @@ const ClerkWebhooks = async (req, res) => {
         break;
       }
       default:
-        const userDetails = {
-          clerkId: data.id,
-          email: data.email_addresses[0].email_addresses,
-          photo: data.image_url,
-          firstName: data.first_name,
-          lastName: data.last_name,
-        };
-
-        await User.create(userDetails);
         res.json({ success: false, message: "Something went wrong" });
         break;
     }
