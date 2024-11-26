@@ -12,8 +12,8 @@ const ClerkWebhooks = async (req, res) => {
 
     await whook.verify(req.body, {
       "svix-id": req.headers["svix-id"],
-      "svix-signature": req.headers["svix-signature"],
       "svix-timestamp": req.headers["svix-timestamp"],
+      "svix-signature": req.headers["svix-signature"],
     });
 
     const { data, type } = req.body;
@@ -21,7 +21,7 @@ const ClerkWebhooks = async (req, res) => {
     console.log(type);
 
     switch (type) {
-      case "user.created":
+      case "user.created": {
         const userDetails = {
           clerkId: data.id,
           email: data.email_addresses[0].email_addresses,
@@ -35,7 +35,8 @@ const ClerkWebhooks = async (req, res) => {
         res.json({ success: true, message: "Account Created Successfully" });
 
         break;
-      case "user.updated":
+      }
+      case "user.updated": {
         const userUpdateDetails = {
           email: data.email_addresses[0].email_addresses,
           photo: data.image_url,
@@ -47,12 +48,15 @@ const ClerkWebhooks = async (req, res) => {
         res.json({ success: true, message: "Account Created Successfully" });
 
         break;
-      case "user.deleted":
+      }
+      case "user.deleted": {
         await User.findByIdAndDelete({ clerkId: data.id });
         res.json({ success: true, message: "Account Deleted Successfully" });
 
         break;
+      }
       default:
+        res.json({ success: false, message: "Something went wrong" });
         break;
     }
   } catch (error) {
