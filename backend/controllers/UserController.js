@@ -140,7 +140,11 @@ const paymentRazorPay = async (req, res) => {
 
     await razorPayInstance.orders.create(options, (error, order) => {
       if (error) {
-        res.json({ success: false, error: "Instance", message: error.message });
+        res.json({
+          success: false,
+          error: "At Instance",
+          message: error.message,
+        });
       }
       res.json({ success: true, order });
     });
@@ -148,10 +152,51 @@ const paymentRazorPay = async (req, res) => {
     console.log(error.message);
     res.json({
       success: false,
-      error: "userController",
+      error: "Catch userController",
       message: error.message,
     });
   }
 };
 
-export { ClerkWebhooks, getCreditBalance, paymentRazorPay };
+//api to verify payment status
+
+const verifyRazorPayPayment = async (req, res) => {
+  try {
+    const { razorpay_order_id } = req.body;
+
+    const orderInfo = await razorPayInstance.orders.fetch(razorpay_order_id);
+
+    if (orderInfo.status === "paid") {
+      const paymentData = await Payment.findById(orderInfo.receipt);
+      if (paymentData.payment) {
+        res.json({ success: false, message: "Payment already verified" });
+      }
+      //adding credits to your data on successful payment
+      const userData = await User.findOne({ clerkId: paymentData.clerkId });
+      const creditBalance = userData.creditBalance + paymentData.credits;
+      await User.findByIdAndUpdate(userData._id, { creditBalance });
+
+      //making payment status to true
+      await Payment.findByIdAndUpdate(paymentData._id, { payment: true });
+
+      res.json({ success: true, message: "Credits added successfully" });
+    } else {
+      res.json({
+        success: false,
+        message: "Payment Failed",
+      });
+    }
+  } catch (error) {
+    res.json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+export {
+  ClerkWebhooks,
+  getCreditBalance,
+  paymentRazorPay,
+  verifyRazorPayPayment,
+};

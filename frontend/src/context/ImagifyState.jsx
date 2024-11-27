@@ -94,7 +94,7 @@ function ImagifyState(props) {
       }
     } catch (error) {
       console.error(error.message);
-      alertFunc(data.message, false);
+      alertFunc(error.message, false);
     }
   };
 
@@ -122,7 +122,7 @@ function ImagifyState(props) {
       }
     } catch (error) {
       console.error(error.message);
-      alertFunc(data.message, false);
+      alertFunc(error.message, false);
     }
   };
 
@@ -137,7 +137,7 @@ function ImagifyState(props) {
         order_id: order.id, //T
         receipt: order.receipt,
         handler: async (responce) => {
-          console.log(responce);
+          paymentVerification(responce);
         },
       };
 
@@ -145,6 +145,31 @@ function ImagifyState(props) {
       rzp.open();
     } catch (error) {
       console.error(error.message);
+    }
+  };
+
+  const paymentVerification = async (orderDetails) => {
+    try {
+      const url =
+        import.meta.env.VITE_URL_END_POINT +
+        import.meta.env.VITE_RAZORPAY_PAYMENT_VERIFY;
+
+      const responce = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderDetails),
+      });
+      const data = await responce.json();
+      if (data.success) {
+        alertFunc(data.message, data.success);
+      } else {
+        alertFunc(data.message, data.success);
+      }
+    } catch (error) {
+      console.error(error.message);
+      alertFunc(error.message, false);
     }
   };
 
