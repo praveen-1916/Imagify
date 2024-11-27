@@ -14,7 +14,7 @@ function NavBar() {
     if (isSignedIn) {
       getCreditBalance();
     }
-  }, []);
+  }, [isSignedIn]);
 
   return (
     <Navbar
