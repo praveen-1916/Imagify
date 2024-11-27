@@ -12,6 +12,7 @@ import { motion } from "motion/react";
 import profileImage1 from "../assets/profile_img_1.png";
 import profileImage2 from "../assets/profile_img_2.png";
 import { useNavigate } from "react-router-dom";
+import { useClerk, useUser } from "@clerk/clerk-react";
 
 const reviews = [
   {
@@ -42,9 +43,15 @@ const reviews = [
 
 function CoustomerReviews() {
   const navigate = useNavigate();
+  const { isSignedIn } = useUser();
+  const { openSignIn } = useClerk();
 
   const handleClick = () => {
-    navigate("/imageGeneration");
+    if (isSignedIn) {
+      navigate("/imageGeneration");
+    } else {
+      openSignIn({});
+    }
   };
 
   return (

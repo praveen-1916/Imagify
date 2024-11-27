@@ -1,6 +1,8 @@
 import { Webhook } from "svix";
 import User from "../models/UserModel.js";
 import "dotenv/config";
+import razorpay from "razorpay";
+import Payment from "../models/PaymentModel.js";
 
 // API controller function to manage clerk user with database
 
@@ -64,4 +66,86 @@ const ClerkWebhooks = async (req, res) => {
   }
 };
 
-export { ClerkWebhooks };
+const getCreditBalance = async (req, res) => {
+  try {
+    const { clerkId } = req.body;
+    const userData = User.findOne(clerkId);
+    res.json({ success: true, creditBalance: userData.creditBalance });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+//payment gateway initialize
+const razorPayInstance = new razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
+
+//api to make payment gateway
+const paymentRazorPay = async (req, res) => {
+  try {
+    const { clerkId, planId } = req.body;
+
+    // const userData = await User.findOne(clerkId);
+
+    if (!clerkId || !planId) {
+      res.json({ success: false, message: "Please provide valid data!" });
+    }
+
+    // const credits,amount,plan
+
+    switch (planId) {
+      case "Basic": {
+        credits = 100;
+        plan = "Basic";
+        amount = 10;
+        break;
+      }
+      case "Advanced": {
+        credits = 500;
+        plan = "Advanced";
+        amount = 50;
+        break;
+      }
+
+      case "Business": {
+        credits = 5000;
+        plan = "Business";
+        amount = 500;
+        break;
+      }
+
+      default:
+        break;
+    }
+
+    const paymentData = {
+      clerkId,
+      amount,
+      credits,
+      plan,
+    };
+
+    const newPayment = await Payment.create(paymentData);
+
+    const options = {
+      amount: amount * 100,
+      currency: process.env.RAZORPAY_CURRENCY,
+      receipt: newPayment._id,
+    };
+
+    await razorPayInstance.orders.create(options, (error, order) => {
+      if (error) {
+        res.json({ success: false, message: error.message });
+      }
+      res.json({ success: true, order });
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export { ClerkWebhooks, getCreditBalance, paymentRazorPay };

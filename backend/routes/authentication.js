@@ -1,8 +1,15 @@
 import { Router } from "express";
-import { ClerkWebhooks } from "../controllers/UserController.js";
+import {
+  ClerkWebhooks,
+  getCreditBalance,
+  paymentRazorPay,
+} from "../controllers/UserController.js";
+import authUser from "../middlewares/authUser.js";
 
-const router = Router();
+const authRouter = Router();
 
-router.post("/webhooks", ClerkWebhooks);
+authRouter.post("/webhooks", ClerkWebhooks);
+authRouter.get("/creditbalance", authUser, getCreditBalance);
+authRouter.post("/razor-pay", authUser, paymentRazorPay);
 
-export default router;
+export default authRouter;

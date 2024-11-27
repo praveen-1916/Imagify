@@ -1,6 +1,7 @@
 import "./App.css";
-import ImageGenerationState from "./context/ImageGenerationState";
+import ImagifyState from "./context/ImagifyState";
 import ImageGeneration from "./pages/ImageGeneration";
+import BuyCredits from "./pages/BuyCredits";
 import Landing from "./pages/Landing";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -8,7 +9,7 @@ function App() {
   return (
     <>
       <Router>
-        <ImageGenerationState>
+        <ImagifyState>
           <div className="bg-gradient-to-b from-[#F2FFF9] to-[#FFF6F1]">
             <Routes>
               <Route exact path="/" element={<Landing />} />
@@ -17,9 +18,10 @@ function App() {
                 path="/imageGeneration"
                 element={<ImageGeneration />}
               />
+              <Route exact path="/buy" element={<BuyCredits />} />
             </Routes>
           </div>
-        </ImageGenerationState>
+        </ImagifyState>
       </Router>
     </>
   );

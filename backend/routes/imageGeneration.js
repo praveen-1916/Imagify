@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { Generation } from "../controllers/Generationcontroller.js";
+import { Generation } from "../controllers/Generationcontroller";
 
-const router = Router();
+const imageRouter = Router();
 
-router.post("/generate", Generation);
+imageRouter.post("/generate", Generation);
 
-export default router;
+export default imageRouter;

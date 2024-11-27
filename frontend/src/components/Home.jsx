@@ -4,12 +4,19 @@ import { motion } from "motion/react";
 import AiSample1 from "../assets/sample_img_1.png";
 import AiSample2 from "../assets/sample_img_2.png";
 import { useNavigate } from "react-router-dom";
+import { useClerk, useUser } from "@clerk/clerk-react";
 
 function Home() {
   const navigate = useNavigate();
+  const { isSignedIn } = useUser();
+  const { openSignIn } = useClerk();
 
   const handleClick = () => {
-    navigate("/imageGeneration");
+    if (isSignedIn) {
+      navigate("/imageGeneration");
+    } else {
+      openSignIn({});
+    }
   };
 
   return (
@@ -33,7 +40,7 @@ function Home() {
           />
         </motion.div>
 
-        <div
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 2 }}
@@ -44,7 +51,7 @@ function Home() {
           <Typography className="md:text-6xl sm:text-5xl text-4xl text-center font-normal">
             <span className="text-pink-500">image,</span> in seconds.
           </Typography>
-        </div>
+        </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -2,22 +2,28 @@ import React, { useState } from "react";
 import { Input, Button, Spinner } from "@material-tailwind/react";
 import { motion } from "motion/react";
 import { useContext } from "react";
-import ImageGenerationContext from "../context/ImageGenerationContext";
 import { Breadcrumbs } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import ImagifyContext from "../context/ImagifyContext";
 
 function Main() {
+  const navigate = useNavigate();
   const [showInput, setShowInput] = useState(true);
   const [prompt, setPrompt] = React.useState("");
   const onChange = ({ target }) => setPrompt(target.value);
 
-  const context = useContext(ImageGenerationContext);
-  const { getImageSrcUsingInputPropmt, image, loading } = context;
+  const context = useContext(ImagifyContext);
+  const { getImageSrcUsingInputPropmt, image, loading, creditBalance } =
+    context;
 
   const handleClick = (e) => {
     e.preventDefault();
-    setShowInput(false);
-    getImageSrcUsingInputPropmt(prompt);
+    if (creditBalance > 0) {
+      setShowInput(false);
+      getImageSrcUsingInputPropmt(prompt);
+    } else {
+      navigate("/buy");
+    }
   };
 
   return (
@@ -72,6 +78,7 @@ function Main() {
                 required
                 label="Image Prompt"
                 size="lg"
+                minLength={10}
                 placeholder="Describe what you want to generate"
                 onChange={onChange}
                 className="pr-20"

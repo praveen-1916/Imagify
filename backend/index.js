@@ -1,8 +1,8 @@
 import express, { json } from "express";
 import cors from "cors";
 import "dotenv/config";
-import imageGenerate from "./routes/imageGeneration.js";
-import auth from "./routes/authentication.js";
+import imageRouter from "./routes/imageGeneration.js";
+import authRouter from "./routes/authentication.js";
 import connectToMongo from "./database.js";
 
 const app = express();
@@ -15,8 +15,8 @@ app.use(json());
 //Middleware to access this server data from all origins
 app.use(cors());
 
-app.use("/3Dimage", imageGenerate);
-app.use("/api/user", auth);
+app.use("/3Dimage", imageRouter);
+app.use("/api/user", authRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
