@@ -69,8 +69,12 @@ const ClerkWebhooks = async (req, res) => {
 const getCreditBalance = async (req, res) => {
   try {
     const { clerkId } = req.body;
-    const userData = User.findOne(clerkId);
-    res.json({ success: true, creditBalance: userData.creditBalance });
+    const userData = User.findOne({ clerkId: clerkId });
+    res.json({
+      success: true,
+      message: "Creditbalance updated",
+      creditBalance: userData.creditBalance,
+    });
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, message: error.message });
