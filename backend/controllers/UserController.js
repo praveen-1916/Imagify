@@ -98,7 +98,12 @@ const paymentRazorPay = async (req, res) => {
       res.json({ success: false, message: "Please provide valid data!" });
     }
 
-    // const credits,amount,plan
+    const paymentData = {
+      clerkId: clerkId,
+      amount: "",
+      credits: "",
+      plan: "",
+    };
 
     switch (planId) {
       case "Basic": {
@@ -124,13 +129,6 @@ const paymentRazorPay = async (req, res) => {
       default:
         break;
     }
-
-    const paymentData = {
-      clerkId,
-      amount,
-      credits,
-      plan,
-    };
 
     const newPayment = await Payment.create(paymentData);
 
