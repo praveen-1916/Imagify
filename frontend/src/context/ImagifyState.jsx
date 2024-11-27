@@ -115,7 +115,6 @@ function ImagifyState(props) {
       const data = await responce.json();
       if (data.success) {
         initPay(data.order);
-        alertFunc(data.message, data.success);
       } else {
         alertFunc(data.message, data.success);
       }
@@ -162,6 +161,7 @@ function ImagifyState(props) {
       });
       const data = await responce.json();
       if (data.success) {
+        getCreditBalance();
         alertFunc(data.message, data.success);
       } else {
         alertFunc(data.message, data.success);
