@@ -6,7 +6,7 @@ import User from "../models/UserModel.js";
 const Generation = async (req, res) => {
   try {
     const { prompt, clerkId } = req.body;
-    const user = await User.findOne(clerkId);
+    const user = await User.findOne({ clerkId: clerkId });
     if (!user) {
       res.json({ success: false, message: "User not found in our database" });
     }
