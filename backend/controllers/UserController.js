@@ -140,13 +140,17 @@ const paymentRazorPay = async (req, res) => {
 
     await razorPayInstance.orders.create(options, (error, order) => {
       if (error) {
-        res.json({ success: false, message: error.message });
+        res.json({ success: false, error: "Instance", message: error.message });
       }
       res.json({ success: true, order });
     });
   } catch (error) {
     console.log(error.message);
-    res.json({ success: false, message: error.message });
+    res.json({
+      success: false,
+      error: "userController",
+      message: error.message,
+    });
   }
 };
 
