@@ -161,7 +161,7 @@ function ImagifyState(props) {
       });
       const data = await responce.json();
       if (data.success) {
-        getCreditBalance();
+        Navigate("/imageGeneration");
         alertFunc(data.message, data.success);
       } else {
         alertFunc(data.message, data.success);
