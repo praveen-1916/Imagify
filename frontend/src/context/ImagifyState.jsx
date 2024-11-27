@@ -75,6 +75,7 @@ function ImagifyState(props) {
   const getCreditBalance = async () => {
     try {
       const token = getToken();
+      console.log(token);
       const url =
         import.meta.env.VITE_URL_END_POINT + import.meta.env.VITE_GET_CREDITS;
 
