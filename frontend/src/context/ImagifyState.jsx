@@ -87,11 +87,14 @@ function ImagifyState(props) {
       });
       const data = await responce.json();
       if (data.success) {
-        console.log(data);
+        alertFunc(data.message, data.success);
         setCreditBalance(data.creditBalance);
+      } else {
+        alertFunc(data.message, data.success);
       }
     } catch (error) {
       console.error(error.message);
+      alertFunc(data.message, false);
     }
   };
 
@@ -113,9 +116,13 @@ function ImagifyState(props) {
       const data = await responce.json();
       if (data.success) {
         initPay(data.order);
+        alertFunc(data.message, data.success);
+      } else {
+        alertFunc(data.message, data.success);
       }
     } catch (error) {
       console.error(error.message);
+      alertFunc(data.message, false);
     }
   };
 
