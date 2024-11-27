@@ -87,7 +87,6 @@ function ImagifyState(props) {
       });
       const data = await responce.json();
       if (data.success) {
-        alertFunc(data.message, data.success);
         setCreditBalance(data.creditBalance);
       } else {
         alertFunc(data.message, data.success);
