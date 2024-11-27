@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Generation } from "../controllers/Generationcontroller";
+import { Generation } from "../controllers/Generationcontroller.js";
 
 const imageRouter = Router();
 

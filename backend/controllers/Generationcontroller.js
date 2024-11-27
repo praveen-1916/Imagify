@@ -1,6 +1,6 @@
 import FormData from "form-data";
 import axios from "axios";
-import User from "../models/UserModel";
+import User from "../models/UserModel.js";
 // import User from "../models/UserModel.js";
 
 const Generation = async (req, res) => {
