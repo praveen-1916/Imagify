@@ -3,12 +3,12 @@ import ImageGenerationContext from "./ImagifyContext";
 import AiSample1 from "../assets/sample_img_1.png";
 import Swal from "sweetalert2";
 import { useAuth } from "@clerk/clerk-react";
+import { useNavigate } from "react-router-dom";
 
 function ImagifyState(props) {
   const [image, setImage] = useState(AiSample1);
   const [loading, setLoading] = useState(false);
-  // const [alerData, setAlerData] = useState(null);
-
+  const navigate = useNavigate();
   const Toast = Swal.mixin({
     toast: true,
     position: "bottom-end",
