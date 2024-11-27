@@ -11,8 +11,10 @@ function NavBar() {
   const { getCreditBalance, creditBalance } = useContext(ImagifyContext);
 
   useEffect(() => {
-    getCreditBalance();
-  }, [isSignedIn]);
+    if (isSignedIn) {
+      getCreditBalance();
+    }
+  }, []);
 
   return (
     <Navbar
