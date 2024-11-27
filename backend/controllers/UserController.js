@@ -100,8 +100,8 @@ const paymentRazorPay = async (req, res) => {
 
     const paymentData = {
       clerkId: clerkId,
-      amount: "",
-      credits: "",
+      amount: 0,
+      credits: 0,
       plan: "",
     };
 
