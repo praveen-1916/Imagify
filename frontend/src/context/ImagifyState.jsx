@@ -41,7 +41,7 @@ function ImagifyState(props) {
     setLoading(true);
     const promptData = { prompt: prompt };
     try {
-      const token = getToken();
+      const token = await getToken();
       const url =
         import.meta.env.VITE_URL_END_POINT +
         import.meta.env.VITE_GENERATE_IMAGE;
@@ -74,8 +74,7 @@ function ImagifyState(props) {
   const [creditBalance, setCreditBalance] = useState(0);
   const getCreditBalance = async () => {
     try {
-      const token = getToken();
-      console.log(token);
+      const token = await getToken();
       const url =
         import.meta.env.VITE_URL_END_POINT + import.meta.env.VITE_GET_CREDITS;
 
@@ -102,7 +101,7 @@ function ImagifyState(props) {
   const razorpayPayment = async (planId) => {
     try {
       const plan = { planId: planId };
-      const token = getToken();
+      const token = await getToken();
       const url =
         import.meta.env.VITE_URL_END_POINT +
         import.meta.env.VITE_RAZORPAY_PAYMENT;

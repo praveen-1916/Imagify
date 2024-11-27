@@ -73,7 +73,7 @@ const getCreditBalance = async (req, res) => {
     res.json({ success: true, creditBalance: userData.creditBalance });
   } catch (error) {
     console.log(error.message);
-    res.json({ success: false, msg: "UserController", message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };
 
