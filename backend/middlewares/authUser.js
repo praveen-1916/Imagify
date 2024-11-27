@@ -10,7 +10,8 @@ const authUser = async (req, res, next) => {
       });
     } else {
       const token_decode = jwt.decode(token);
-      req.body.clerkId = token_decode.clerkId;
+      console.log(token_decode.clerkId);
+      req.body.clerkId = token_decode;
       next();
     }
   } catch (error) {
