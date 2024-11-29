@@ -6,10 +6,11 @@ import {
   Chip,
   Typography,
 } from "@material-tailwind/react";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { motion } from "motion/react";
 import favicon from "../assets/favicon.svg";
 import ImagifyContext from "../context/ImagifyContext";
+import Swal from "sweetalert2";
 
 const plansData = [
   {
@@ -34,6 +35,24 @@ const plansData = [
 
 function Pricing() {
   const { razorpayPayment } = useContext(ImagifyContext);
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "bottom-end",
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    },
+  });
+
+  useEffect(() => {
+    Toast.fire({
+      icon: "warning",
+      title: "Insufficient Credits. Please Buy Credits!",
+    });
+  }, []);
 
   return (
     <div className="md:h-[calc(100vh-75px)] md:pt-20 py-20">
